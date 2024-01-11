@@ -3,15 +3,15 @@
 install_pyenv() {
     # Check if git installed
     git --version 2>&1 >/dev/null
-    
+
     if [ $? -ne 0 ];
     then
         echo "Installing git..."
-        sudo apt install git
+         apt install -y git
     fi
-    
+
     PYENV_DIR=$HOME/.pyenv
-    
+
     if [ -d $PYENV_DIR ];
     then
         echo "pyenv already exists, skip installing pyenv!"
@@ -21,14 +21,14 @@ install_pyenv() {
         git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
         git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv
     fi
-    
+
     # Set up pyenv paths
     SHELL_CONFIG_FILE="$HOME/.bashrc"
     PYENV_CMD_TITLE="# pyenv"
     PYENV_CMD1="export PYENV_ROOT=\"\$HOME/.pyenv\""
     PYENV_CMD2="command -v pyenv >/dev/null || export PATH=\"\$PYENV_ROOT/bin:\$PATH\""
     PYENV_CMD3="eval \"\$(pyenv init -)\""
-    
+
     if ! grep -Fxq "${PYENV_CMD_TITLE}" ${SHELL_CONFIG_FILE}
     then
         echo "Setting up pyenv configuration in ${SHELL_CONFIG_FILE}"
@@ -57,6 +57,7 @@ set_up_env() {
     echo "setting up env ${ENV_NAME} with Python ${PYTHON_VERSION}"
     pyenv install ${PYTHON_VERSION}
     pyenv virtualenv ${PYTHON_VERSION} ${ENV_NAME}
+	exit 1
 }
 
 usage() {

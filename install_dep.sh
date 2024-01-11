@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install tensorRT
-sudo apt install -y tensorrt nvidia-tensorrt-dev
+apt install -y tensorrt nvidia-tensorrt-dev
 
 ENV_NAME="py310"
 
