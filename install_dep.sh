@@ -1,12 +1,14 @@
 #!/bin/bash
 
+set -e
+
+# Use pyenv python3.10 by default
+ENV_NAME=${ENV_NAME:py310}
+PYTHON_BIN=${PYTHON_BIN:$HOME/.pyenv/versions/${ENV_NAME}/bin/python}
+
 # Install tensorRT
-apt install -y tensorrt nvidia-tensorrt-dev
-
-ENV_NAME="py310"
-
-python_bin=$HOME/.pyenv/versions/${ENV_NAME}/bin/python
+apt install -y tensorrt nvidia-tensorrt-dev python3-pip
 
 # Install ultralytics==8.0.176 and onnx
-${python_bin} -m pip install --no-deps ultralytics==8.0.176
-${python_bin} -m pip install "onnx>=1.12.0"
+${PYTHON_BIN} -m pip install --no-deps ultralytics==8.0.176
+${PYTHON_BIN} -m pip install "onnx>=1.12.0"
