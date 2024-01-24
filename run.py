@@ -3,7 +3,7 @@ from pathlib import Path
 import logging
 
 import cv2
-from industrialnext.camera import config as CameraConfig, Camera
+from industrialnext.camera import Config as CameraConfig, Camera
 from industrialnext.camera import print_cybersight_modes
 import tomli as toml
 import yolo_inference
@@ -44,15 +44,6 @@ def camera_setup(config) -> buffer:
     camera.start()
     return camera.buffer()
 
-def main():
-    args = parse_args()
-    if args.print_camera_modes:
-        print_cybersight_modes()
-        return
-    config = read_config(args.conf)
-    cam_buf = camera_setup(config["camera"])
-    run(cam_buf)
-
 def run(cam_buf: buffer) -> None:
     model = yolo_inference.get_torch_model(yolo_inference.yolo_model)
     while True:
@@ -61,6 +52,15 @@ def run(cam_buf: buffer) -> None:
 
         # Customer logic here!
 
+
+def main():
+    args = parse_args()
+    if args.print_camera_modes:
+        print_cybersight_modes()
+        return
+    config = read_config(args.conf)
+    cam_buf = camera_setup(config["camera"])
+    run(cam_buf)
 
 if __name__ == "__main__":
     main()
