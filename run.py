@@ -1,12 +1,17 @@
 import argparse
-from pathlib import Path
 import logging
+from pathlib import Path
+from time import sleep
+import sys
 
 import cv2
-import industrialnext.alpha_camera as camera
+import industrialnext.alpha_camera as camlib
 import tomli as toml
 from ultralytics import YOLO
 
+import yolo_inference
+
+logger = logging.getLogger(__name__)
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -33,22 +38,23 @@ def read_config(file_path: str):
             config = toml.load(f)
     except FileNotFoundError as _ex:
         logger.error("Config file [%s] not found.", file_path)
+        config = None
     return config
 
 def camera_setup(config):
-    _, params = config["cameras"].items()[0]
-    cfg = CameraConfig()
-    cfg.configure(params)
-    camera = Camera.from_config(cfg)
-    return camera
+    cfg = camlib.Config(config)
+    my_camera = camlib.Camera.from_config(cfg)
+    my_camera.start()
+    return my_camera
 
 def run(camera) -> None:
     model = yolo_inference.get_torch_model(yolo_inference.yolo_model)
-    while True:
-        frame = frame_buf.peek()
+    while camera.running():
+        frame = camera.latest_frame()
         results = model(frame)
-
-        # Customer logic here!
+        print(results)
+        sleep(1)
+    print("Stream is not open; exiting...")
 
 
 def main():
@@ -57,12 +63,13 @@ def main():
         camera.print_cybersight_modes()
         return
     elif args.config is not None:
-        config = read_config(args.conf)
-        print("Success!")
+        config = read_config(args.config)
+        if config is not None:
+            print("Launching application...")
+            camera = camera_setup(config["cameras"]["cybersight-cam-0"])
+            run(camera)
     else:
         parser.print_help()
-    #cam_buf = camera_setup(config["camera"])
-    #run(cam_buf)
 
 if __name__ == "__main__":
     main()

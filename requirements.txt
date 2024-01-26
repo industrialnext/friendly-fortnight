@@ -1,4 +1,4 @@
-industrialnext.alpha_camera
+industrialnext.alpha_camera>=0.0.2
 opencv-contrib-python==4.7.0.72+industrialnext
 tomli
 matplotlib
@@ -9,6 +9,6 @@ psutil
 py-cpuinfo
 scipy>=1.4.1
 seaborn>=0.11.0
-torchvision>=0.9.0
+torchvision==0.15+industrialnext
 tqdm>=4.64.0
 requests>=2.23.0

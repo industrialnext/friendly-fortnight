@@ -22,7 +22,7 @@ type = "cybersight"
 #exposure-min = 50000
 #exposure-max = 100000
 
-[resources.cameras.cybersight-cam-0.cybersight]
+[cameras.cybersight-cam-0.cybersight]
 # Use --print-camera-codes to see available modes
 mode = 0
 fps = 0
