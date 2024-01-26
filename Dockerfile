@@ -34,11 +34,12 @@ WORKDIR /app
 COPY ./install_dep.sh .
 RUN PYTHON_BIN=$PYTHON_BIN ./install_dep.sh
 COPY ./install_industrialnext_deps.sh .
+COPY ./requirements.txt .
 RUN PYTHON_BIN=$PYTHON_BIN INDUSTRIALNEXT_PY_INDEX=$INDUSTRIALNEXT_PY_INDEX ./install_industrialnext_deps.sh
-RUN rm -v *.sh
+RUN rm -v *.sh requirements.txt
 
 #
 # Cleanup and setup running application
 #
 COPY *.py .
-ENTRYPOINT ["python3.10", "cybersight_sample.py"]
+ENTRYPOINT ["python3.10", "run.py"]
