@@ -16,13 +16,13 @@ BUILD_CMD="time docker build --build-arg INDUSTRIALNEXT_PY_INDEX=%s -t presdk:la
 RUN_CMD="time docker run -it --rm --runtime nvidia
     -v /tmp/argus_socket:/tmp/argus_socket 
     -v %s:/app/config.toml
-    presdk:latest -c /app/config.toml"
+    presdk:latest -c /app/config.toml %s"
 
 
 print_usage () {
     SUBCMD_HELP_FMT="%8s: %s\n"
     echo "Helper script for running docker commands associated with SDK Alpha"
-    echo "Usage: $0 <build,run,print> [-c config_file]"
+    echo "Usage: $0 <build,run,print> [--print-camera-modes|-h]"
     printf "%16s\n" "Default config file is $DEFAULT_CONFIG_FILE"
     printf "$SUBCMD_HELP_FMT" "build" "Build the presdk container"
     printf "$SUBCMD_HELP_FMT" "run" "Run the presdk container with the given config file"
@@ -39,7 +39,7 @@ do_build() {
 }
 
 do_run() {
-    CMD=$(printf "$RUN_CMD" "$CONFIG_FILE")
+    CMD=$(printf "$RUN_CMD" "$CONFIG_FILE" "$@")
     echo "running with:"
     echo "$CMD"
     sleep 1
@@ -53,10 +53,10 @@ case $1 in
         do_build 
         ;;
     "run")
-        do_run
+        do_run $2
         ;;
     "buildrun")
-        do_build && do_run
+        do_build && do_run $2
         ;;
     "print")
         echo "Command to build container:"
@@ -70,4 +70,4 @@ case $1 in
         echo "Unrecognized command."
         print_usage
         ;;
-    esac
+esac

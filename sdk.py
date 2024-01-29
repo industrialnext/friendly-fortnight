@@ -1,3 +1,13 @@
+""" Industrial Next "Alpha" SDK
+
+DO NOT MODIFY.
+
+This file contains simple scaffolding for running a Cybersight application. 
+Unless you need to change functionality related to command line arguments, 
+the configuration file, or opening the camera, this file should NOT need 
+to be modified.
+
+"""
 import argparse
 import logging
 from pathlib import Path
@@ -12,7 +22,12 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
+
 def parse_args():
+    """
+    Parse configuration based on CLI args.
+    Return config dict if we can, else None.
+    """
     parser = argparse.ArgumentParser(
         description="SDK 1.0 Alpha",
     )
@@ -23,14 +38,20 @@ def parse_args():
         help="Path to config file",
     )
     parser.add_argument(
-        "--print-camera-modes",
-        action="store_true",
-        help="Print camera modes and exit"
+        "--print-camera-modes", action="store_true", help="Print camera modes and exit"
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.print_camera_modes:
+        camlib.print_cybersight_modes()
+        return None
+    config = read_config(args.config)
+    return config
 
 
 def read_config(file_path: str):
+    """
+    Given a toml file, return the dictionary contained.
+    """
     mode: str = "rb"
     try:
         with open(file_path, mode) as f:
@@ -40,7 +61,11 @@ def read_config(file_path: str):
         config = None
     return config
 
+
 def camera_setup(config):
+    """
+    Given a camera configuration dict, return camera instance.
+    """
     cfg = camlib.Config(config)
     my_camera = camlib.Camera.from_config(cfg)
     my_camera.start()
@@ -48,21 +73,16 @@ def camera_setup(config):
 
 
 def main():
-    args = parse_args()
-    if args.print_camera_modes:
-        camera.print_cybersight_modes()
+    config = parse_args()
+    if config is None:
         return
-    elif args.config is not None:
-        config = read_config(args.config)
-        if config is not None:
-            if "application" not in config:
-                logger.fatal("No application section in config, exiting")
-            else:
-                logger.info("Launching application...")
-                camera = camera_setup(config["cameras"]["cybersight-cam-0"])
-                run(camera, config["application"])
+    if "application" not in config:
+        logger.fatal("No application section in config, exiting")
     else:
-        parser.print_help()
+        logger.info("Launching application...")
+        camera = camera_setup(config["cameras"]["cybersight-cam-0"])
+        run(camera, config["application"])
+
 
 if __name__ == "__main__":
     main()
