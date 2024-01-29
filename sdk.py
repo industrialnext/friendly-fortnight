@@ -1,17 +1,16 @@
 import argparse
 import logging
 from pathlib import Path
-from time import sleep
 import sys
 
-import cv2
 import industrialnext.alpha_camera as camlib
 import tomli as toml
-from ultralytics import YOLO
 
-import yolo_inference
+from app import run
 
+logging.basicConfig()
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -47,15 +46,6 @@ def camera_setup(config):
     my_camera.start()
     return my_camera
 
-def run(camera) -> None:
-    model = yolo_inference.get_torch_model(yolo_inference.yolo_model)
-    while camera.running():
-        frame = camera.latest_frame()
-        results = model(frame)
-        print(results)
-        sleep(1)
-    print("Stream is not open; exiting...")
-
 
 def main():
     args = parse_args()
@@ -65,12 +55,14 @@ def main():
     elif args.config is not None:
         config = read_config(args.config)
         if config is not None:
-            print("Launching application...")
-            camera = camera_setup(config["cameras"]["cybersight-cam-0"])
-            run(camera)
+            if "application" not in config:
+                logger.fatal("No application section in config, exiting")
+            else:
+                logger.info("Launching application...")
+                camera = camera_setup(config["cameras"]["cybersight-cam-0"])
+                run(camera, config["application"])
     else:
         parser.print_help()
 
 if __name__ == "__main__":
     main()
-

@@ -58,3 +58,4 @@ sensor-model = "imx577"
 
 [application]
 example-setting = "hello!"
+iterations = 5

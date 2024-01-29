@@ -42,4 +42,4 @@ RUN rm -v *.sh requirements.txt
 # Cleanup and setup running application
 #
 COPY *.py .
-ENTRYPOINT ["python3.10", "run.py"]
+ENTRYPOINT ["python3.10", "sdk.py"]
