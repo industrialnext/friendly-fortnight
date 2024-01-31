@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ENV_NAME=${ENV_NAME:=py310}
+
 install_pyenv() {
     # Check if git installed
     git --version 2>&1 >/dev/null
@@ -42,7 +44,6 @@ install_pyenv() {
 }
 
 set_up_env() {
-    ENV_NAME="py310"
     PYTHON_VERSION=3.10.12
 
     # Check if pyenv exists

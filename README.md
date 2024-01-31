@@ -1,25 +1,12 @@
 # friendly-fortnight
 
-Sample code that runs yolov8 pose model on CyberSight camera stream
+Sample code that runs yolov8 pose model on CyberSight camera stream using the "Alpha" release of the SDK.
+
+For complete documentation, see the manual
 
 ## Scripts
 - `pyenv_setup.sh`: a shell script that installs or sets up a pyenv environment
 - `install_dep.sh`: a shell script that installs YoloV8 dependencies
+- `install_industrialnext_deps.sh`: installs dependencies of Industrial Next components
 - `yolo_inference.py`: a script that has function wrappers and a sample yolov8 test on an example image
-- cybersight_yolo.py: an example script that runs yolov8 model inference on an image stream from the cybersight camera
-
-## Usage
-```sh
-# To set up pyenv
-$ sudo ./pyenv_setup.sh -i|-s
-
-# To install YoloV8 dependencies
-$ sudo ./install_dep.sh
-
-# To run scripts
-$ pyenv activate py310
-$ python cybersight_yolo.py
-
-# See help menu
-$ python cybersight_yolo.py -h
-```
+- `sdk
