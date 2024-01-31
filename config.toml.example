@@ -59,3 +59,5 @@ sensor-model = "imx577"
 [application]
 example-setting = "hello!"
 iterations = 5
+# This directory is assumed to exist, primarily for use in the container
+output-dir = "/app/data"

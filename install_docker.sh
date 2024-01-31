@@ -24,4 +24,5 @@ sudo apt-get update
 sudo apt-get install -y nvidia-container-toolkit
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
-echo Done!
+sudo usermod -a -g docker $USER
+echo Done! Log out and back in to apply new group to your user
