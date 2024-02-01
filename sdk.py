@@ -2,9 +2,9 @@
 
 DO NOT MODIFY.
 
-This file contains simple scaffolding for running a Cybersight application. 
-Unless you need to change functionality related to command line arguments, 
-the configuration file, or opening the camera, this file should NOT need 
+This file contains simple scaffolding for running a Cybersight application.
+Unless you need to change functionality related to command line arguments,
+the configuration file, or opening the camera, this file should NOT need
 to be modified.
 
 """
@@ -12,6 +12,7 @@ import argparse
 import logging
 from pathlib import Path
 import sys
+from time import sleep
 
 import industrialnext.alpha_camera as camlib
 import tomli as toml
@@ -82,6 +83,8 @@ def main():
         logger.info("Launching application...")
         camera = camera_setup(config["cameras"]["cybersight-cam-0"])
         run(camera, config["application"])
+        logger.info("Stopping imager")
+        camera.stop()
 
 
 if __name__ == "__main__":

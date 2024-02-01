@@ -53,7 +53,7 @@ sensor-model = "imx577"
 #auto-exposure-lock = false
 
 # Maximum amount of buffers in the queue for appsink in gstreamer pipeline
-# It is 0 by default. 0 == unlimited
+# 1 by default, 0 == unlimited
 #appsink-max-buffers = 1
 
 [application]
@@ -61,3 +61,4 @@ example-setting = "hello!"
 iterations = 5
 # This directory is assumed to exist, primarily for use in the container
 output-dir = "/app/data"
+#output-dir = "/home/ubuntu/shullick/friendly-fortnight/container_data"

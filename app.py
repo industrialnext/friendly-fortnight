@@ -18,6 +18,7 @@ import cv2
 import yolo_inference
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 def run(camera, config) -> None:
 
@@ -49,7 +50,11 @@ def run(camera, config) -> None:
     """
     model = yolo_inference.get_torch_model(yolo_inference.yolo_model)
     if camera.running():
-        img_shape = camera.latest_frame().shape[:1]
+        try:
+            img_shape = camera.latest_frame().shape[:1]
+        except AttributeError:
+            logger.fatal("Failed to acquire frame. Try restarting Argus daemon.")
+            return
         annotator = yolo_inference.create_annotator(img_shape)
     else:
         log.fatal("Camera not open, exiting")
@@ -65,7 +70,8 @@ def run(camera, config) -> None:
             yolo_inference.update_annotator_img(annotator, frame)
             yolo_inference.annotate_keypoints(annotator, results)
             frame = annotator.result()
-            cv2.imwrite(str(Path(output_dir, f"{i}.png")), frame)
+            cv2.imwrite(str(Path(output_dir, f"{i + 1}.png")), frame)
+            logger.info("Write %d...", i)
             sleep(1)
         else:
             logger.warn("Stream is not open; exiting...")
