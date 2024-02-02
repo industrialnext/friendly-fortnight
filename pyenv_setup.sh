@@ -52,13 +52,11 @@ set_up_env() {
     if [ $? -ne 0 ];
     then
 	echo "pyenv command not found!"
-	exit 1
     fi
 
     echo "setting up env ${ENV_NAME} with Python ${PYTHON_VERSION}"
     pyenv install ${PYTHON_VERSION}
     pyenv virtualenv ${PYTHON_VERSION} ${ENV_NAME}
-	exit 1
 }
 
 usage() {
