@@ -1,6 +1,6 @@
 """ Customer's application for Alpha SDK.
 
-This file contains a method imported and run by the SDK. All that is required
+This file contains a function imported and run by the SDK. All that is required
 is a function named "run" that takes two arguments, one for a camera handle
 and for a dictionary containing configuration values.
 
