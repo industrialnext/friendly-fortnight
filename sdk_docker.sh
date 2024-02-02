@@ -38,6 +38,9 @@ print_usage () {
     printf "$SUBCMD_HELP_FMT" "build" "Build the presdk container"
     printf "$SUBCMD_HELP_FMT" "run" "Run the presdk container with the given config file"
     printf "$SUBCMD_HELP_FMT" "print" "Just print the template commands and exit"
+    printf "$SUBCMD_HELP_FMT" "buildrun" "Build the container and immediately run"
+
+    echo "[--print-camera-modes|-h] are optionally passed to sdk.py when running the container."
 }
 
 do_build() {

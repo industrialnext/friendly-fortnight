@@ -2,6 +2,9 @@
 
 set -e
 
+CHECK_FILE="/etc/nv_tegra_release"
+[ ! -e "$CHECK_FILE" ] && echo "Exiting because $CHECK_FILE doesn't exist. Are you running on a Jetson?" && exit 1
+
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
 

@@ -9,7 +9,7 @@ install_pyenv() {
     if [ $? -ne 0 ];
     then
         echo "Installing git..."
-         apt install -y git
+        sudo apt install -y git
     fi
 
     PYENV_DIR=$HOME/.pyenv
@@ -49,9 +49,9 @@ set_up_env() {
     # Check if pyenv exists
     pyenv --version 2>&1 >/dev/null
 
-    if [ $? -ne 0 ];
-    then
-	echo "pyenv command not found!"
+    if [ $? -ne 0 ]; then
+        echo "pyenv command not found!"
+        exit 1
     fi
 
     echo "setting up env ${ENV_NAME} with Python ${PYTHON_VERSION}"

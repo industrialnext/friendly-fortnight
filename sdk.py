@@ -13,6 +13,7 @@ import logging
 from pathlib import Path
 import sys
 from time import sleep
+from typing import Optional
 
 import industrialnext.alpha_camera as camlib
 import tomli as toml
@@ -24,7 +25,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-def parse_args():
+def parse_args() -> Optional[dict]:
     """
     Parse configuration based on CLI args.
     Return config dict if we can, else None.
@@ -36,6 +37,7 @@ def parse_args():
         "-c",
         "--config",
         type=Path,
+        required=True,
         help="Path to config file",
     )
     parser.add_argument(
@@ -49,7 +51,7 @@ def parse_args():
     return config
 
 
-def read_config(file_path: str):
+def read_config(file_path: str) -> Optional[dict]:
     """
     Given a toml file, return the dictionary contained.
     """
@@ -63,7 +65,7 @@ def read_config(file_path: str):
     return config
 
 
-def camera_setup(config):
+def camera_setup(config: dict) -> camlib.Camera:
     """
     Given a camera configuration dict, return camera instance.
     """
@@ -73,7 +75,7 @@ def camera_setup(config):
     return my_camera
 
 
-def main():
+def main() -> None:
     config = parse_args()
     if config is None:
         return
