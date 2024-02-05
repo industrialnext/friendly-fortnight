@@ -1,0 +1,63 @@
+# PreSDK V2 Config File
+
+[cameras.cybersight-cam-0]
+# for cybersight cameras 'name' is the cybersight sensor id
+name = "0"
+# Change to override sensor mode resolution, else leave 0, 0
+width = 0
+height = 0
+# pixel format can be bgr, rgb, mono
+pixel-format = "bgr"
+type = "cybersight"
+
+# gain-min and gain-max control analogue gain
+#gain-min = 1
+#gain-max = 22
+
+# digital-gain-min and digital-gain-max control digital gain
+#digital-gain-min = 1
+#digital-gain-max = 8
+
+# exposure-min and exposure-max control exposure range
+#exposure-min = 50000
+#exposure-max = 100000
+
+[cameras.cybersight-cam-0.cybersight]
+# Use --print-camera-codes to see available modes
+mode = 0
+fps = 0
+use-process = true
+# sensor-model can be 'imx477', 'imx577'
+sensor-model = "imx577"
+
+# white-balance-mode sets the white balance mode
+# Look up in `gst-inspect-1.0 nvarguscamerasrc`
+# This is OFF by default
+#white-balance-mode = 0
+
+# edge-enhancement-mode and edge-enhancement-strength control edge enhancement
+# These are OFF by default
+#edge-enhancement-mode = 0
+#edge-enhancement-strength = -1
+
+# temporal-noise-reduction-mode and temporal-noise-reduction strength
+# control temporal noise reduction. These are OFF by default
+#temporal-noise-reduction-mode = 0
+#temporal-noise-reduction-strength = -1
+
+# exposure-compensation controls exposure compensation mode
+#exposure-compensation = 0
+
+# auto-exposure-lock controls the auto exposure lock
+# It is false by default
+#auto-exposure-lock = false
+
+# Maximum amount of buffers in the queue for appsink in gstreamer pipeline
+# 1 by default, 0 == unlimited
+#appsink-max-buffers = 1
+
+[application]
+example-setting = "hello!"
+iterations = 5
+# This directory is assumed to exist, primarily for use in the container
+output-dir = "/app/data"
