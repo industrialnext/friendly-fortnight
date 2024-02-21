@@ -57,7 +57,7 @@ def run(camera, config) -> None:
             return
         annotator = yolo_inference.create_annotator(img_shape)
     else:
-        log.fatal("Camera not open, exiting")
+        logger.fatal("Camera not open, exiting")
 
     """
     Application loop
