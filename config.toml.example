@@ -27,8 +27,8 @@ type = "cybersight"
 mode = 0
 fps = 0
 use-process = true
-# sensor-model can be 'imx477', 'imx577'
-sensor-model = "imx577"
+# sensor-model can be 'imx283', 'imx577'
+sensor-model = "imx283"
 
 # white-balance-mode sets the white balance mode
 # Look up in `gst-inspect-1.0 nvarguscamerasrc`
