@@ -41,5 +41,7 @@ RUN rm -v *.sh requirements.txt
 #
 # Cleanup and setup running application
 #
-COPY *.py .
+ENV LD_PRELOAD $LD_PRELOAD:/lib/aarch64-linux-gnu/libGLdispatch.so.0
+ENV LD_PRELOAD $LD_PRELOAD:/lib/aarch64-linux-gnu/libgomp.so.1
+COPY *.py ./
 ENTRYPOINT ["python3.10", "sdk.py"]
