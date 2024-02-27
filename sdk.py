@@ -71,6 +71,7 @@ def camera_setup(config: dict) -> camlib.Camera:
     """
     cfg = camlib.Config(config)
     my_camera = camlib.Camera.from_config(cfg)
+    logger.info("Starting camera with pipeline: %s", my_camera._gstreamer_pipeline())
     my_camera.start()
     return my_camera
 
