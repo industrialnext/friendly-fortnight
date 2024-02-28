@@ -17,7 +17,7 @@ import cv2
 
 import yolo_inference
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("sdk")
 logger.setLevel(logging.INFO)
 
 def run(camera, config) -> None:

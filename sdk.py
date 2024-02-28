@@ -20,8 +20,9 @@ import tomli as toml
 
 from app import run
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
+logging.basicConfig(format='%(asctime)s,%(msecs)03d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+            datefmt='%Y-%m-%d:%H:%M:%S')
+logger = logging.getLogger("sdk")
 logger.setLevel(logging.DEBUG)
 
 
